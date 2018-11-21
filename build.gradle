@@ -1,0 +1,87 @@
+buildscript {
+    ext {
+        springBootVersion = '2.1.0.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+plugins {
+    id 'java'
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'application'
+mainClassName = 'com.blacksteel.deneb.ItemMain'
+
+defaultTasks 'clean','build'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven { url "https://repo.spring.io/milestone" }
+}
+
+dependencies {
+
+    // Guava
+    compile('com.google.guava:guava:23.0')
+
+    // Spring
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-data-rest')
+    //compile('org.springframework.boot:spring-boot-starter-amqp')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    //compile('org.springframework.boot:spring-boot-starter-security')
+    runtimeOnly('org.springframework.boot:spring-boot-devtools')
+
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-io
+    compile group: 'org.apache.commons', name: 'commons-io', version: '1.3.2'
+
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-text
+    compile group: 'org.apache.commons', name: 'commons-text', version: '1.6'
+
+
+    // H2
+    compile("com.h2database:h2")
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    //testImplementation('org.springframework.security:spring-security-test')
+
+    testCompile('org.mockito:mockito-core:2.+')
+    testCompile('junit:junit:4.12')
+
+    // https://mvnrepository.com/artifact/org.powermock/powermock-module-junit4
+    /*testCompile group: 'org.powermock', name: 'powermock-module-junit4', version: '1.7.4'*/
+
+    // https://mvnrepository.com/artifact/org.powermock/powermock-api-mockito
+    /*testCompile group: 'org.powermock', name: 'powermock-api-mockito', version: '1.7.4'*/
+
+}
+
+ext {
+    springCloudVersion = 'Greenwich.M1'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+
+
+
+
+
+
